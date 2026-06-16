@@ -1,11 +1,379 @@
 ---
-import Welcome from '../components/Welcome.astro';
 import Layout from '../layouts/Layout.astro';
 
-// Welcome to Astro! Wondering what to do next? Check out the Astro documentation at https://docs.astro.build
-// Don't want to use any of this? Delete everything in this file, the `assets`, `components`, and `layouts` directories, and start fresh.
+const projects = [
+  {
+    name: 'Balance POS',
+    url: 'https://balance.apexcorpsac.com',
+    description: 'Solución integral que centraliza facturación electrónica, inventarios y caja cuadrada con integración directa a SUNAT.',
+    tags: ['SaaS', 'POS', 'Facturación'],
+    year: '2024',
+    glow: '#10b981'
+  },
+  {
+    name: 'Qve',
+    url: 'https://qveapp.com',
+    description: 'ERP financiero y sistema de gestión de costos. Seguimiento de rentabilidad por proyecto y cumplimiento tributario automático.',
+    tags: ['ERP', 'Finanzas', 'B2B'],
+    year: '2024',
+    glow: '#6a8cef'
+  },
+  {
+    name: 'ApexCognito',
+    url: 'https://cognito.apexcorpsac.com/',
+    description: 'Plataforma HR Tech impulsada por IA para análisis avanzado de talento y retención.',
+    tags: ['HR Tech', 'AI', 'SaaS'],
+    year: '2023',
+    glow: '#a855f7'
+  },
+  {
+    name: 'ApexFlux',
+    url: 'https://flux.apexcorpsac.com/',
+    description: 'Helpdesk corporativo diseñado para agilizar el soporte técnico y operativo empresarial.',
+    tags: ['Helpdesk', 'SaaS', 'Support'],
+    year: '2023',
+    glow: '#ec4899'
+  },
+  {
+    name: 'Trazz',
+    url: 'https://trazz.pro',
+    description: 'Solución de trazabilidad y gestión de procesos empresariales end-to-end.',
+    tags: ['SaaS', 'Enterprise'],
+    year: '2023',
+    glow: '#f97316'
+  }
+];
+
+const skills = [
+  'Full-Stack',
+  'Next.js / React',
+  'Node.js / Express',
+  'Databases',
+  'API Design',
+  'DevOps',
+  'AI Integration',
+  'Cloud Architecture'
+];
 ---
 
 <Layout>
-	<Welcome />
+  <div class="fixed top-0 left-0 right-0 h-[2px] bg-white/5 z-[80]">
+    <div class="progress-bar h-full bg-gradient-to-r from-[#ff4d4d] via-[#ff6b6b] to-[#ffa3a3]" style="width:0%"></div>
+  </div>
+
+  <nav class="page-pad py-8 flex items-center justify-between absolute top-8 left-0 right-0 z-[100]">
+    <div class="magnetic-btn">
+      <a href="/" class="text-[20px] lg:text-[26px] font-[300] text-white text-heading tracking-tight">
+        <span class="char">Favio </span><span class="char">Munayco</span>
+      </a>
+    </div>
+    <div class="flex items-center gap-8">
+      <a href="#projects" class="hidden md:block text-[12px] font-mono uppercase tracking-[0.2em] text-white/55 hover:text-white transition-colors">Projects</a>
+      <a href="#contact" class="text-[12px] font-mono uppercase tracking-[0.2em] text-white/55 hover:text-white transition-colors">Contact</a>
+    </div>
+  </nav>
+
+  <main class="bg-[var(--bg)] relative">
+    <!-- ===================== HERO ===================== -->
+    <section class="hero-section page-pad relative h-screen min-h-[680px] flex flex-col justify-center pt-[140px] pb-[180px]">
+      <h1 class="text-heading font-bold uppercase text-white text-[44px] sm:text-[68px] md:text-[92px] xl:text-[130px] 2xl:text-[160px] leading-[0.95] tracking-[-0.02em]">
+        <span class="block overflow-hidden pb-1">
+          <span class="inline-block">
+            <span class="char">F</span><span class="char">u</span><span class="char">l</span><span class="char">l</span><span class="char">-</span><span class="char">S</span><span class="char">t</span><span class="char">a</span><span class="char">c</span><span class="char">k</span>
+          </span>
+        </span>
+        <span class="block overflow-hidden pb-1 lg:ml-[8vw]">
+          <span class="inline-block">
+            <span class="char">D</span><span class="char">e</span><span class="char">v</span><span class="char">e</span><span class="char">l</span><span class="char">o</span><span class="char">p</span><span class="char">e</span><span class="char">r</span>
+          </span>
+        </span>
+      </h1>
+
+      <div class="absolute left-0 right-0 bottom-[40px] lg:bottom-[60px] page-pad flex items-end justify-between gap-6">
+        <div class="relative h-[88px] w-[88px] lg:h-[110px] lg:w-[110px] flex items-center justify-center shrink-0">
+          <div class="scroll-indicator-rotate absolute inset-0">
+            <svg viewBox="0 0 100 100" width="100%" height="100%">
+              <path id="ellipse-id" fill="none" d="M50,50 m-40,0 a40,40 0 1,1 80,0 a40,40 0 1,1 -80,0"></path>
+              <text style="font-size:8px;letter-spacing:5.5px;fill:rgba(244,244,244,0.85);">
+                <textPath href="#ellipse-id" startOffset="0">SCROLL DOWN · SCROLL DOWN · </textPath>
+              </text>
+            </svg>
+          </div>
+          <svg class="relative z-10" width="14" height="14" viewBox="0 0 24 24" fill="none">
+            <path d="M12 5v14M5 12l7 7 7-7" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+
+        <div class="flex flex-col items-end lg:items-start text-right lg:text-left">
+          <div class="flex items-center gap-3 lg:gap-5 relative">
+            <div class="absolute -inset-3 bg-white/5 rounded-full blur-xl animate-pulse opacity-60"></div>
+            <h3 class="uppercase text-[14px] lg:text-[20px] xl:text-[24px] font-[400] text-white relative z-10 tracking-[0.05em]">Open to work</h3>
+            <svg class="animate-spin-slow relative z-10" width="20" height="20" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+          </div>
+          <h4 class="font-[300] text-white/70 text-[12px] lg:text-[14px] mt-2 font-mono uppercase tracking-[0.18em]">Based in Peru</h4>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SKILLS ===================== -->
+    <section class="skills-section page-pad relative py-[2rem] lg:py-[4rem] my-4!">
+      <div class="grid grid-cols-12 gap-6">
+
+        <div class="col-span-12  flex flex-col gap-8 lg:gap-12">
+          {skills.map((skill, i) => (
+            <p class={`about text-heading uppercase font-bold text-right text-[44px] sm:text-[68px] lg:text-[92px] xl:text-[110px] leading-[0.92] tracking-[-0.025em] ${i === 0 ? 'first-p' : ''}`}>
+              {skill}
+            </p>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== PROJECTS ===================== -->
+    <section id="projects" class="page-pad relative py-[100px] lg:py-[150px] my-16!">
+      <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+        <!-- LEFT (fixed while scrolling) -->
+        <aside id="projects-sidebar" class="lg:col-span-5">
+          <div class="flex items-center gap-3 mb-10">
+            <svg class="animate-spin-slow w-5 h-5" viewBox="0 0 24 24" fill="none">
+              <path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4" stroke="white" stroke-width="2" stroke-linecap="round"/>
+            </svg>
+            <h2 class="font-mono uppercase text-white text-[12px] tracking-[0.25em]">Selected works</h2>
+          </div>
+
+          <div class="mb-10 flex items-baseline gap-3">
+            <span class="project-number text-heading text-[64px] lg:text-[88px] font-bold text-white leading-none">01</span>
+            <span class="text-white/30 text-base font-mono">/ 0{projects.length}</span>
+          </div>
+
+          <ul class="flex flex-col gap-8">
+            {projects.map((project, i) => (
+              <li>
+                <a href={project.url} target="_blank" rel="noopener noreferrer"
+                   data-index={i}
+                   class={`split-project-item block group py-5 border-l pl-5! ${i === 0 ? 'opacity-100 border-white' : 'opacity-40 border-transparent'}`}>
+                  <div class="flex items-center gap-3 mb-1.5">
+                    <span class="text-white/40 text-[11px] font-mono tracking-[0.2em]">{project.year}</span>
+                    <span class="active-dot w-1.5 h-1.5 rounded-full" style={`background:${project.glow};`}></span>
+                  </div>
+                  <h3 class="text-heading text-[24px] lg:text-[30px] font-bold text-white leading-tight transition-transform duration-500 group-hover:translate-x-2">
+                    {project.name}
+                  </h3>
+                  <p class="text-white/45 text-[13px] mt-1.5 max-w-md">{project.description.split('.')[0]}.</p>
+                </a>
+              </li>
+            ))}
+          </ul>
+        </aside>
+
+        <!-- RIGHT (scrollable previews) -->
+        <div class="lg:col-span-7 flex flex-col gap-10 lg:gap-16">
+          {projects.map((project, i) => (
+            <article data-index={i} class="project-preview-item">
+              <div class="project-card" style={`--glow:${project.glow};`}>
+                <span class="project-card__bignum">0{i + 1}</span>
+                <div class="project-card__glow project-card__glow--tr" style={`background:${project.glow};`}></div>
+                <div class="project-card__glow project-card__glow--bl" style={`background:${project.glow};`}></div>
+
+                <div class="project-card__meta">
+                  <span>{project.year} — {project.tags[0]}</span>
+                  <span>{String(i + 1).padStart(2, '0')} / 0{projects.length}</span>
+                </div>
+
+                <div>
+                  <h3 class="project-card__title">{project.name}</h3>
+                  <p class="project-card__desc">{project.description}</p>
+                  <div class="project-card__tags">
+                    {project.tags.map(tag => (
+                      <span class="project-card__tag">{tag}</span>
+                    ))}
+                  </div>
+                  <a href={project.url} target="_blank" rel="noopener noreferrer" class="project-card__cta">
+                    <span>Ver proyecto</span>
+                    <span class="project-card__cta-arrow">
+                      <svg width="12" height="12" viewBox="0 0 24 24" fill="none">
+                        <path d="M7 17L17 7M17 7H7M17 7V17" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                      </svg>
+                    </span>
+                  </a>
+                </div>
+              </div>
+            </article>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== CONTACT ===================== -->
+    <section id="contact" class="page-pad pt-[120px] pb-[150px] lg:pb-[200px] relative mt-32! mb-16!">
+      <div class="flex flex-col lg:flex-row gap-16 lg:gap-12 items-start">
+        <div class="lg:w-1/2">
+          <p class="font-mono uppercase text-white/45 text-[12px] tracking-[0.25em] mb-8!">— Contacto</p>
+          <div class="magnetic-btn inline-block">
+            <a href="mailto:contact@apexcorpsac.com"
+               class="get-in-touch uppercase block text-center text-white text-[34px] lg:text-[64px] rounded-full px-10! py-3 border border-white text-heading hover:bg-white hover:text-black">
+              Get in touch
+            </a>
+          </div>
+        </div>
+
+        <div class="flex flex-col w-full lg:w-1/2 gap-5 lg:items-end">
+          {[
+            { label: 'LinkedIn', href: 'https://www.linkedin.com/in/favio-munayco/' },
+            { label: 'GitHub',   href: 'https://github.com' },
+            { label: 'Email',    href: 'mailto:faviomunayco@gmail.com' }
+          ].map(link => (
+            <div class="magnetic-btn w-full lg:w-2/3">
+              <a href={link.href} target="_blank"
+                 class="link-underline gap-4 text-[20px] lg:text-[26px] flex items-center justify-between text-white py-2">
+                {link.label}
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none">
+                  <path d="M18.36 5.64H11.29M18.36 5.64L18.36 12.71M18.36 5.64L5.64 18.36" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </a>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
 </Layout>
+
+<script>
+  import gsap from 'gsap';
+  import { ScrollTrigger } from 'gsap/ScrollTrigger';
+  gsap.registerPlugin(ScrollTrigger);
+
+  // Skills color reveal
+  gsap.utils.toArray<HTMLElement>('.about').forEach((el) => {
+    ScrollTrigger.create({
+      trigger: el,
+      start: 'top 80%',
+      onEnter: () => el.classList.add('in-view'),
+      onLeaveBack: () => el.classList.remove('in-view')
+    });
+  });
+
+  // Progress bar
+  const progressBar = document.querySelector<HTMLElement>('.progress-bar');
+  if (progressBar) {
+    window.addEventListener('scroll', () => {
+      const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = (window.scrollY / docHeight) * 100;
+      progressBar.style.width = pct + '%';
+    }, { passive: true });
+  }
+
+  // Citation in/out
+  const skillsSection = document.querySelector('.skills-section');
+  const citationWrapper = document.querySelector<HTMLElement>('.citation-wrapper');
+  if (skillsSection && citationWrapper) {
+    ScrollTrigger.create({
+      trigger: skillsSection,
+      start: 'top 70%',
+      end: 'bottom 30%',
+      onEnter: () => gsap.to(citationWrapper, { opacity: 1, duration: 0.7 }),
+      onEnterBack: () => gsap.to(citationWrapper, { opacity: 1, duration: 0.7 }),
+      onLeave: () => gsap.to(citationWrapper, { opacity: 0, duration: 0.5 }),
+      onLeaveBack: () => gsap.to(citationWrapper, { opacity: 0, duration: 0.5 })
+    });
+  }
+
+  // Active project sync — closest card to viewport center wins (inline styles override Tailwind)
+  function initActiveSync() {
+    const previewItems = Array.from(document.querySelectorAll<HTMLElement>('.project-preview-item'));
+    const projectItems = Array.from(document.querySelectorAll<HTMLElement>('.split-project-item'));
+    const projectNumber = document.querySelector<HTMLElement>('.project-number');
+    if (!previewItems.length || !projectItems.length) return;
+
+    // Reset all to inactive
+    projectItems.forEach((it) => {
+      it.style.opacity = '0.35';
+      it.style.borderLeftColor = 'transparent';
+      it.style.transition = 'opacity .35s ease, border-color .35s ease';
+    });
+
+    let currentActive = -1;
+    let ticking = false;
+
+    function setActive(index: number) {
+      if (index === currentActive) return;
+      currentActive = index;
+      projectItems.forEach((it, i) => {
+        const active = i === index;
+        it.style.opacity = active ? '1' : '0.35';
+        it.style.borderLeftColor = active ? '#ffffff' : 'transparent';
+      });
+      if (projectNumber) projectNumber.textContent = String(index + 1).padStart(2, '0');
+    }
+
+    function compute() {
+      ticking = false;
+      const vc = window.innerHeight / 2;
+      let bestIdx = 0;
+      let bestDist = Infinity;
+      for (let i = 0; i < previewItems.length; i++) {
+        const r = previewItems[i].getBoundingClientRect();
+        const c = r.top + r.height / 2;
+        const d = Math.abs(c - vc);
+        if (d < bestDist) { bestDist = d; bestIdx = i; }
+      }
+      setActive(bestIdx);
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        requestAnimationFrame(compute);
+        ticking = true;
+      }
+    }
+
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll);
+
+    previewItems.forEach((item) => {
+      ScrollTrigger.create({
+        trigger: item,
+        start: 'top 85%',
+        onEnter: () => requestAnimationFrame(() => requestAnimationFrame(compute)),
+        onEnterBack: () => requestAnimationFrame(() => requestAnimationFrame(compute)),
+        onUpdate: () => requestAnimationFrame(() => requestAnimationFrame(compute))
+      });
+    });
+
+    requestAnimationFrame(() => requestAnimationFrame(compute));
+  }
+
+  function initSidebarPin() {
+    const sidebar = document.getElementById('projects-sidebar');
+    const projectsSection = document.getElementById('projects');
+    if (!sidebar || !projectsSection) return;
+
+    ScrollTrigger.create({
+      trigger: projectsSection,
+      start: 'top 80px',
+      end: 'bottom bottom',
+      pin: sidebar,
+      pinSpacing: false
+    });
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', () => { initActiveSync(); initSidebarPin(); });
+  } else {
+    initActiveSync();
+    initSidebarPin();
+  }
+
+  // Project card hover spotlight
+  document.querySelectorAll<HTMLElement>('.project-card').forEach((card) => {
+    card.addEventListener('mousemove', (e) => {
+      const r = card.getBoundingClientRect();
+      card.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+      card.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+    });
+  });
+</script>

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://favio.munayco.dev/sitemap-index.xml

@@ -1,0 +1,425 @@
+@import "tailwindcss";
+
+/* ============================================
+   CSS RESET
+   ============================================ */
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+html {
+  scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
+html, body {
+  width: 100%;
+  min-height: 100vh;
+  overflow-x: hidden;
+}
+
+body {
+  background: #0a0a0a;
+  color: #ffffff;
+  font-family: 'Inter', system-ui, -apple-system, sans-serif;
+  font-weight: 300;
+  line-height: 1.5;
+  font-feature-settings: "ss01", "cv11";
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+button, input, textarea, select {
+  font: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  outline: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul, ol {
+  list-style: none;
+}
+
+::selection {
+  background: #ff4d4d;
+  color: #0a0a0a;
+}
+
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.25);
+}
+
+/* ============================================
+   DESIGN TOKENS
+   ============================================ */
+:root {
+  --bg: #0a0a0a;
+  --bg-elev: #141414;
+  --bg-card: #1a1a1a;
+  --text: #f4f4f4;
+  --text-dim: rgba(244, 244, 244, 0.55);
+  --text-muted: rgba(244, 244, 244, 0.35);
+  --border: rgba(255, 255, 255, 0.08);
+  --border-hover: rgba(255, 255, 255, 0.2);
+  --accent: #ff4d4d;
+  --accent-soft: rgba(255, 77, 77, 0.15);
+
+  --font-heading: 'Syne', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'Space Grotesk', ui-monospace, monospace;
+
+  --pad-x-mobile: 24px;
+  --pad-x-tablet: 48px;
+  --pad-x-desktop: 80px;
+  --pad-x-wide: 120px;
+}
+
+.text-heading { font-family: var(--font-heading); }
+.font-mono    { font-family: var(--font-mono); }
+.font-body    { font-family: var(--font-body); }
+
+/* ============================================
+   GLOBAL CURSOR
+   ============================================ */
+@media (pointer: fine) {
+  html, body, * {
+    cursor: none !important;
+  }
+}
+
+.cursor-trail,
+.cursor-main,
+.cursor-dot {
+  position: fixed;
+  top: 0;
+  left: 0;
+  pointer-events: none;
+  will-change: transform;
+}
+
+.cursor-trail {
+  border-radius: 50%;
+  background-color: rgba(244, 244, 244, 0.18);
+  z-index: 9992;
+  filter: blur(0.5px);
+  mix-blend-mode: difference;
+}
+
+.cursor-main {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: 1px solid rgba(244, 244, 244, 0.85);
+  background: transparent;
+  z-index: 9999;
+  transition: width .25s ease, height .25s ease, background-color .25s ease;
+  mix-blend-mode: difference;
+}
+
+.cursor-main.hover {
+  width: 60px;
+  height: 60px;
+  background-color: rgba(244, 244, 244, 0.1);
+}
+
+.cursor-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: #f4f4f4;
+  z-index: 10000;
+  mix-blend-mode: difference;
+}
+
+.cursor-dot.hover {
+  opacity: 0;
+}
+
+@media (max-width: 768px), (pointer: coarse) {
+  .cursor-trail, .cursor-main, .cursor-dot {
+    display: none !important;
+  }
+  html, body, * {
+    cursor: auto !important;
+  }
+}
+
+/* ============================================
+   PAGE TRANSITION
+   ============================================ */
+.page-transition {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  pointer-events: none;
+  z-index: 9990;
+}
+
+.page-transition-bar {
+  flex: 1;
+  background: #f4f4f4;
+  transform: scaleY(0);
+  transform-origin: top center;
+  will-change: transform;
+}
+
+.page-transition-bar:nth-child(even) {
+  transform-origin: bottom center;
+}
+
+/* ============================================
+   PAGE CONTAINER (consistent edge padding)
+   ============================================ */
+.page-pad {
+  padding-left: var(--pad-x-mobile);
+
+  padding-right: var(--pad-x-mobile);
+}
+@media (min-width: 768px)  { .page-pad { padding-left: var(--pad-x-tablet);  padding-right: var(--pad-x-tablet);  } }
+@media (min-width: 1024px) { .page-pad { padding-left: var(--pad-x-desktop); padding-right: var(--pad-x-desktop); } }
+@media (min-width: 1536px) { .page-pad { padding-left: var(--pad-x-wide);    padding-right: var(--pad-x-wide);    } }
+
+/* ============================================
+   LINKS & BUTTONS
+   ============================================ */
+.link-underline {
+  position: relative;
+}
+.link-underline::after {
+  content: "";
+  position: absolute;
+  left: 0; bottom: -4px;
+  width: 100%; height: 1px;
+  background: currentColor;
+  transform: scaleX(0);
+  transform-origin: right;
+  transition: transform .5s cubic-bezier(.77,0,.18,1);
+}
+.link-underline:hover::after {
+  transform: scaleX(1);
+  transform-origin: left;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.animate-spin-slow { animation: spin-slow 6s linear infinite; }
+
+@keyframes rotate-scroll {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+.scroll-indicator-rotate svg { animation: rotate-scroll 10s linear infinite; }
+
+/* ============================================
+   ABOUT/SKILLS COLOR REVEAL
+   ============================================ */
+.about {
+  color: rgba(255, 255, 255, 0.12);
+  transition: color .7s cubic-bezier(.77,0,.18,1);
+}
+.about.in-view,
+.about.first-p {
+  color: #ffffff;
+}
+
+/* ============================================
+   PROJECT CARDS
+   ============================================ */
+.project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 28px;
+  border-radius: 24px;
+  background: linear-gradient(180deg, #161616 0%, #0d0d0d 100%);
+  border: 1px solid var(--border);
+  overflow: hidden;
+  isolation: isolate;
+  transition: border-color .4s ease, transform .4s ease;
+  height: 70vh;
+  min-height: 480px;
+}
+@media (min-width: 1024px) {
+  .project-card { padding: 40px; height: 78vh; min-height: 560px; }
+}
+.project-card:hover {
+  border-color: var(--border-hover);
+}
+.project-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(800px circle at var(--mx, 50%) var(--my, 0%),
+              rgba(255,255,255,0.06), transparent 40%);
+  opacity: 0;
+  transition: opacity .4s ease;
+  pointer-events: none;
+  z-index: 1;
+}
+.project-card:hover::before { opacity: 1; }
+
+.project-card__bignum {
+  position: absolute;
+  top: 24px;
+  right: 28px;
+  font-family: var(--font-mono);
+  font-size: clamp(80px, 14vw, 180px);
+  font-weight: 700;
+  line-height: 0.85;
+  color: rgba(255,255,255,0.04);
+  z-index: 0;
+  pointer-events: none;
+  letter-spacing: -0.04em;
+}
+
+.project-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  position: relative;
+  z-index: 2;
+}
+
+.project-card__title {
+  font-family: var(--font-heading);
+  font-weight: 700;
+  font-size: clamp(40px, 6vw, 80px);
+  line-height: 0.95;
+  letter-spacing: -0.02em;
+  color: #fff;
+  position: relative;
+  z-index: 2;
+  margin-top: auto;
+  margin-bottom: 16px;
+}
+
+.project-card__desc {
+  color: var(--text-dim);
+  font-size: 15px;
+  line-height: 1.55;
+  max-width: 46ch;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 24px;
+}
+
+.project-card__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  position: relative;
+  z-index: 2;
+  margin-bottom: 24px;
+}
+.project-card__tag {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+
+.project-card__cta {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 20px;
+  border: 1px solid var(--border-hover);
+  border-radius: 999px;
+  width: fit-content;
+  font-size: 13px;
+  letter-spacing: 0.05em;
+  position: relative;
+  z-index: 2;
+  transition: background-color .3s ease, border-color .3s ease;
+}
+.project-card__cta:hover {
+  background: rgba(255,255,255,0.06);
+  border-color: rgba(255,255,255,0.4);
+}
+.project-card__cta-arrow {
+  width: 28px; height: 28px;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.08);
+  display: grid;
+  place-items: center;
+  transition: transform .3s ease, background-color .3s ease;
+}
+.project-card__cta:hover .project-card__cta-arrow {
+  transform: rotate(45deg);
+  background: rgba(255,255,255,0.16);
+}
+
+.project-card__glow {
+  position: absolute;
+  width: 320px; height: 320px;
+  border-radius: 50%;
+  filter: blur(110px);
+  opacity: 0.35;
+  z-index: 0;
+  pointer-events: none;
+}
+.project-card__glow--tr { top: -80px; right: -80px; }
+.project-card__glow--bl { bottom: -120px; left: -120px; opacity: 0.18; }
+
+/* ============================================
+   SPLIT PROJECT LIST (left side)
+   ============================================ */
+.split-project-item {
+  transition: opacity .3s ease, border-color .3s ease;
+}
+.split-project-item:hover {
+  opacity: 1 !important;
+}
+
+/* ============================================
+   GET IN TOUCH
+   ============================================ */
+.get-in-touch {
+  transition: background-color .35s ease, color .35s ease;
+}
